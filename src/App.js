@@ -37,11 +37,11 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Graphs with React</h2>
+      <h2>Crypto Graph</h2>
       <div className="btns">
         {/* <button onClick={resetData}>Reset</button> */}
       </div>
-      { data ? <TreeMapD3 width={1800} height={1000} data={data} valueUnit={"MB"} /> : null }
+      { data ? <TreeMapD3 width={1500} height={1000} data={data} /> : null }
     </div>
   );
 }

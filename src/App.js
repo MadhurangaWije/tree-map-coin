@@ -1,46 +1,37 @@
 import './App.css';
 import TreeMapD3 from './components/TreeMapD3';
 import React, { useEffect, useState } from 'react';
-import { dataset, info } from './mock-data/dataAnalytic';
+import { dataset, info, treeMapData } from './mock-data/dataAnalytic';
 import axios from 'axios';
 
 function App() {
   const [data, setData] = useState(null);
 
-  /* useEffect(() => {
-    setData(dataset);
-    console.log(dataset);
-  }, []); */
   useEffect(() => {
     axios.get(`https://api.coinlore.com/api/tickers/`)
       .then(res => {
-        setData(res);
-        console.log("api", res);
+        const formattedData = res.data.data.map((data)=>{
+          return {
+            name: data.name,
+            value: data.rank
+          };
+        });
+        console.log(formattedData);
+        setData(formattedData);
       })
-  },[])
-  /* function deepCopy(obj) {
-    return JSON.parse(JSON.stringify(obj));
-  } */
-
-
+  },[]);
 
   const resetData = () => {
-    setData(info);
+    console.log(data);
   }
-
-  if (data === null) return <></>;
 
   return (
     <div className="App">
       <h2>Graphs with React</h2>
       <div className="btns">
-        {/* <button onClick={updateData1}>Change Child Data Values</button>
-        <button onClick={updateData2}>Add/Remove Child Nodes</button>
-        <button onClick={updateData3}>Add Parent Nodes</button>
-        <button onClick={updateData4}>Remove Parent Nodes</button> */}
         <button onClick={resetData}>Reset</button>
       </div>
-      <TreeMapD3 width={800} height={500} data={data} />
+      { data ? <TreeMapD3 width={800} height={500} data={treeMapData} valueUnit={"MB"} /> : null }
     </div>
   );
 }

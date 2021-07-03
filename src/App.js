@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "react-d3-treemap/dist/react.d3.treemap.css";
 import Dashboard from './components/Dashboard';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function App() {
   const [data, setData] = useState(null);
@@ -52,28 +54,30 @@ function App() {
   return (
     <div className="App">
       <h2>Crypto Graph</h2>
-      <div className="filters">
-        <div className="categorizeBy">
-          <label htmlFor="category">Category</label>
-          <select name="category" id="category" value={category} onChange={(e) => setCategoryType(e.target.value)}>
-            <option value="markets">Market</option>
-            <option value="categories">Coin Category</option>
-          </select>
-        </div>
-        <div className="blockSizeBy">
-          <label htmlFor="blocksize">Block Size By</label>
-          <select name="blockSizeBy" id="blocksize" value={blockSize} onChange={(e) => setBlockSizeType(e.target.value)}>
-            <option value="market_cap">Market CAP</option>
-            <option value="total_supply">Total Supply</option>
-            <option value="total_volume">Total Volume</option>
-          </select>
-        </div>
-        <div className="currency">
-          <label htmlFor="currency">Currency</label>
-          <select name="currency" id="currency">
-            <option value="usd">USD</option>
-          </select>
-        </div>
+      <div className="card card-header">
+        <Select
+          disableUnderline
+          value={category}
+          onChange={(e) => setCategoryType(e.target.value)}
+        >
+          <MenuItem value="markets">Market</MenuItem>
+          <MenuItem value="categories">Coin Category</MenuItem>
+        </Select>
+        <Select
+          disableUnderline
+          value={blockSize}
+          onChange={(e) => setBlockSizeType(e.target.value)}
+        >
+          <MenuItem value="market_cap">Market CAP</MenuItem>
+          <MenuItem value="total_supply">Total Supply</MenuItem>
+          <MenuItem value="total_volume">Total Volume</MenuItem>
+        </Select>
+        {/* <Select
+          disableUnderline
+          value="Currency"
+        >
+          <MenuItem value="usd">USD</MenuItem>
+        </Select> */}
       </div>
 
       {data ? <Dashboard width={1300} height={500} data={data} /> : null}

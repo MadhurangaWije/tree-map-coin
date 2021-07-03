@@ -29,6 +29,9 @@ function App() {
         });
 
         setData(formattedTreeData);
+      }).catch(error => {
+        let message = typeof error.response !== "undefined" ? error.response.data.message : error.message;
+        console.warn("error", message);
       })
   }, []);
 

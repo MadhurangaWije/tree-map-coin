@@ -3,11 +3,10 @@ import TreeMap from "react-d3-treemap";
 
 
 function TreeMapD3({ width, height, data }) {
-    console.log("d*", data);
+    console.log("Rendering Tree Map");
     return (
         <TreeMap id="my" width={width} height={height} data={data} valueUnit="MB" />
-    )
-
+    );
 }
 
 export default TreeMapD3;
